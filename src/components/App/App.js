@@ -14,23 +14,17 @@ const App = () => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const getMovies = async () => {
-        try {
-            const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies');
-            if(!response.ok) {
-              throw new Error('Bad Network')
-            }
-            console.log(Error)
-            const data = await response.json();
-            setApiMovies(data.movies);
-            setError('')
-        } catch (error) {
-            setError('Sorry something went wrong, please try again!')
-        }
+    fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', {
+      method: 'GET',
+      headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
     }
-    getMovies();
-
-},[])
+    })
+    .then(res => res.json())
+    .then(res => setApiMovies(res.results))
+    .catch(err => setError(err));
+  },[])
 
   return (
     <main className='App'>

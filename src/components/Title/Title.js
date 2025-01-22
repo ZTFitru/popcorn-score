@@ -27,7 +27,7 @@ function Title({apiMovies, error}) {
       <section className="main-page-cont">
         <RandomScroller apiMovies={ apiMovies }/>
         <div className='search-input'>
-          <label HTMLFor='input-search'>
+          <label htmlFor='input-search'>
             <p  className='visually-hidden'>Search Bar</p>
             <input 
               type='text' 
@@ -41,9 +41,9 @@ function Title({apiMovies, error}) {
           {filteredMovies.length > 0 ? (
             filteredMovies.map((movie) => (
               <Link to={`/movies/${movie.id}`} className='movie' key={movie.id}>
-                <img src={movie.poster_path} alt={`Poster of the movie ${movie.title}`} />
+                <img src={`https://image.tmdb.org/t/p/w500` + movie.poster_path} alt={`Poster of the movie ${movie.title}`} />
                 <p>{movie.title}</p>
-                <p>⭐️ {movie.average_rating.toFixed(1)}</p>
+                <p>⭐️ {movie.vote_average.toFixed(1)}</p>
               </Link>
             ))
           ) : (
@@ -61,7 +61,7 @@ Title.propTypes = {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       poster_path: PropTypes.string.isRequired,
-      average_rating: PropTypes.number.isRequired
+      vote_average: PropTypes.number.isRequired
     })
   ).isRequired,
   error: PropTypes.string
